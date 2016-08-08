@@ -1,0 +1,20 @@
+---
+# file: tasks/pre_package_alpine.yml
+
+# please run 'apk add python' on alpine host before running this task
+# or run a specific playbook without setup step :
+#   gather_facts: False
+# to install the python package on alpine hosts :
+#   raw: apk add python
+
+- name: pre_package_alpine - add alpine specific packages
+  package: name=$item state=present
+  become: yes
+  with_items:
+    - bash
+    - ca-certificates
+    - tzdata
+
+- name: pre_package_alpine - upgrade all packages
+  become: yes
+  apk: upgrade=yes

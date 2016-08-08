@@ -1,0 +1,7 @@
+package:
+  screen:
+    installed: true
+  rsync:
+    installed: true
+  vim:
+    installed: true

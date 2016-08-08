@@ -1,0 +1,5 @@
+gossfile:
+  package.yml: {}
+  ssh.yml: {}
+  bash.yml: {}
+  root.yml: {}

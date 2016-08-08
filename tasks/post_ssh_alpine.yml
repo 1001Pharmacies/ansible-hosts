@@ -1,0 +1,6 @@
+---
+# file: tasks/post_ssh_alpine.yml
+
+- name: post_ssh_alpine - restart openssh
+  service: name=sshd state=restarted
+  when: ssh_disallow_root_login|changed

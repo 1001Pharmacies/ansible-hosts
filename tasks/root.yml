@@ -1,0 +1,10 @@
+---
+# file: tasks/root.yml
+
+- name: root - touch file /root/.ssh/auto
+  file: path=/root/.ssh/auto state=touch mode="u=rw,g=r,o=r"
+  become: yes
+
+- name: root - update file /root/.screenrc
+  lineinfile: dest=/root/.screenrc create=yes line='hardstatus alwayslastline "%{= kw}[%{G}%H%{-}] \# %?%-Lw%?[%{G}%n%f %t%{-}]%?%+Lw%?%?%=%-17< [%{B}%l%{-}]"'
+  become: yes

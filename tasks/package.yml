@@ -1,0 +1,13 @@
+---
+# file: tasks/package.yml
+
+- include: pre_package_alpine.yml
+  when: ansible_os_family == 'Alpine'
+
+- name: package - add default packages
+  package: name=$item state=present
+  become: yes
+  with_items:
+  - screen
+  - rsync
+  - vim
