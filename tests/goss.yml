@@ -11,13 +11,23 @@
     command: which goss
     register: tests_goss_installed
 
+  # with_first_found works on local files, not on remote 
+  - name: tests - register goss file for specific operating system
+    stat: path="{{item}}"
+    register: tests_goss_file
+    with_first_found:
+      - "goss/main_{{ansible_distribution|lower}}.yml"          # main_centos.yml main_ubuntu.yml
+      - "goss/main_{{ansible_os_family|lower}}.yml"             # main_redhat.yml main_debian.yml
+      - "goss/main_{{ansible_system|lower}}.yml"                # main_linux.yml
+      - "goss/main.yml"                                         # main.yml
+
   - name: tests - copy test files
     copy: src=goss/ dest="{{tests_mktemp.stdout}}"
 
   - name: tests - launch tests
     environment: 
       PATH: "/usr/local/bin:{{ansible_env.PATH}}"
-    goss: path="{{tests_mktemp.stdout}}/main.yml" format=rspecish
+    goss: path="{{tests_mktemp.stdout}}/{{tests_goss_file.results.0.item|basename}}" format=rspecish
     register: tests_goss_results
     ignore_errors: true
     become: yes
