@@ -2,3 +2,5 @@
 # file vars/redhat.yml
 
 file_bashrc: /etc/bashrc
+packages:
+  - vim-minimal

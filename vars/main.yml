@@ -2,3 +2,9 @@
 # file vars/main.yml
 
 file_bashrc_local: /etc/bashrc.local
+packages_common:
+  - bash
+  - ca-certificates
+  - rsync
+  - screen
+  - tzdata

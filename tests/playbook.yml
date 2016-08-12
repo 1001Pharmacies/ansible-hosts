@@ -1,6 +1,6 @@
 ---
 # file: tests/playbook.yml
 
-- hosts: docker
+- hosts: all
   tasks:
     - include: main.yml

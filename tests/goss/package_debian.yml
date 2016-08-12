@@ -1,0 +1,5 @@
+gossfile:
+  package.yml: {}
+package:
+  vim-nox:
+    installed: true
