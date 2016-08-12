@@ -1,0 +1,4 @@
+---
+# file vars/default.yml
+#
+file_bashrc: /etc/bashrc

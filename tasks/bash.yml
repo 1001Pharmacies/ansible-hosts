@@ -2,9 +2,9 @@
 # file: tasks/bash.yml
 
 - name: bash - update file /etc/bash.bashrc
-  lineinfile: dest=/etc/bash.bashrc state=present create=yes line='[ -r /etc/bash.bashrc.local ] && source /etc/bash.bashrc.local'
+  lineinfile: dest={{file_bashrc}} state=present create=yes line='[ -r {{file_bashrc_local}} ] && source {{file_bashrc_local}}'
   become: yes
 
-- name: bash - copy file /etc/bash.bashrc.local
-  copy: src=files/etc/bash.bashrc.local dest=/etc/bash.bashrc.local owner=root group=root mode=0644
+- name: bash - copy file /etc/bashrc.local
+  copy: src=files/{{file_bashrc_local}} dest={{file_bashrc_local}} owner=root group=root mode=0644
   become: yes

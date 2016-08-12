@@ -1,0 +1,4 @@
+---
+# file vars/debian.yml
+
+file_bashrc: /etc/bash.bashrc

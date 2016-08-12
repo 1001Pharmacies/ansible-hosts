@@ -1,0 +1,4 @@
+---
+# file vars/main.yml
+
+file_bashrc_local: /etc/bashrc.local
