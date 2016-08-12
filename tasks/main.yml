@@ -1,19 +1,18 @@
 ---
 # file: tasks/main.yml
 
+- include: vars.yml
+  tags:
+    - vars
 - include: package.yml
   tags:
-    - hosts
     - package
 - include: ssh.yml
   tags:
-    - hosts
     - ssh
 - include: bash.yml
   tags:
-    - hosts
     - bash
 - include: root.yml
   tags:
-    - hosts
     - root
