@@ -6,10 +6,10 @@
   with_items: "{{sshusers|default([])}}"
   become: yes
 
-- name: ssh - disallow root login
-  lineinfile: dest=/etc/ssh/sshd_config regexp='^PermitRootLogin' line='PermitRootLogin prohibit-password'
-  become: yes
-  register: ssh_disallow_root_login
+  # - name: ssh - disallow root login
+  #   lineinfile: dest=/etc/ssh/sshd_config regexp='^PermitRootLogin' line='PermitRootLogin prohibit-password'
+  #   become: yes
+  #   register: ssh_disallow_root_login
 
-- include: post_ssh_alpine.yml
-  when: ansible_os_family == 'Alpine'
+  # - include: post_ssh_alpine.yml
+  #   when: ansible_os_family == 'Alpine'
