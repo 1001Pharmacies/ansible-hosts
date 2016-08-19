@@ -1,7 +1,21 @@
 ---
 # file: tasks/package.yml
 
-- name: package - add default packages
-  package: name={{item}} state=present
+- name: package - remove unwanted packages
+  package: name="{{item}}" state=absent
+  with_items: "{{hosts_package_unwanted}}"
+  when: hosts_package_unwanted|length > 0
   become: yes
-  with_items: "{{packages + packages_common}}"
+
+- name: package - add package dependencies
+  package: name="{{item}}" state=present
+  with_items: "{{hosts_package_dependencies}}"
+  when: hosts_package_dependencies|length > 0
+  become: yes
+
+- name: package - add hosts package
+  package: name="{{item}}" state=present
+  with_items: "{{hosts_package}}"
+  when: hosts_package|length > 0
+  become: yes
+

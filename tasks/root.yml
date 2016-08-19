@@ -1,8 +1,12 @@
 ---
 # file: tasks/root.yml
 
+- name: root - register auto screen state
+  set_fact:
+    hosts_root_auto_state: "{{hosts_root_auto_screen|ternary('touch', 'absent')}}"
+
 - name: root - touch file /root/.ssh/auto
-  file: path=/root/.ssh/auto state=touch mode="u=rw,g=r,o=r"
+  file: path=/root/.ssh/auto state={{hosts_root_auto_state}} mode="u=rw,g=r,o=r"
   become: yes
 
 - name: root - update file /root/.screenrc

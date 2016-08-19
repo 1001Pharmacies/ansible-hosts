@@ -1,10 +1,4 @@
 file:
-  /root/.ssh/auto:
-    exists: true
-    mode: "0644"
-    owner: root
-    group: root
-    filetype: file
   /root/.screenrc:
     exists: true
     mode: "0644"

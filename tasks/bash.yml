@@ -1,10 +1,19 @@
 ---
 # file: tasks/bash.yml
 
-- name: bash - update file /etc/bash.bashrc
-  lineinfile: dest={{file_bashrc}} state=present create=yes line='[ -r {{file_bashrc_local}} ] && source {{file_bashrc_local}}'
+- name: bash - update file /etc/bashrc
+  lineinfile: dest={{hosts_bash_etc_bashrc}} state=present create=yes line='[ -r {{hosts_bash_etc_bashrc_local}} ] && source {{hosts_bash_etc_bashrc_local}}'
   become: yes
 
-- name: bash - copy file /etc/bashrc.local
-  copy: src=files/{{file_bashrc_local}} dest={{file_bashrc_local}} owner=root group=root mode=0644
+- name: bash - copy bash profile files
+  copy: src=files/{{item}} dest={{item}} owner=root group=root mode=0644
   become: yes
+  with_items:
+    - "{{hosts_bash_etc_bashrc_local}}"
+    - "{{hosts_bash_etc_profile_d_istra_sh}}"
+
+- name: bash - copy bash istra files
+  copy: src=files/{{item}} dest={{item}} owner=root group=root mode=0755
+  become: yes
+  with_items:
+    - "{{hosts_bash_usr_bin_istra_motd_sh}}"

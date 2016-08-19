@@ -1,6 +1,7 @@
 ---
 # file vars/debian.yml
 
-file_bashrc: /etc/bash.bashrc
-packages:
+hosts_bash_etc_bashrc: /etc/bash.bashrc
+hosts_package:
   - vim-nox
+

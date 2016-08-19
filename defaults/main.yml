@@ -1,4 +1,23 @@
 ---
 # file: defaults/main.yml
 
-sshusers: []
+# a list of github usernames to get public keys
+hosts_ssh_users: []
+# when a user connect with ssh as root, create and/or attach a screen session
+# true / false
+hosts_root_auto_screen: false
+
+hosts_bash_etc_bashrc: /etc/bashrc
+hosts_bash_etc_bashrc_local: /etc/bashrc.local
+hosts_bash_etc_profile_d_bash_functions_sh: /etc/profile.d/bash_functions.sh
+hosts_bash_etc_profile_d_istra_sh: /etc/profile.d/istra.sh
+hosts_bash_usr_bin_istra_motd_sh: /usr/bin/istra_motd.sh
+hosts_package: []
+hosts_package_dependencies:
+  - bash
+  - ca-certificates
+  - rsync
+  - screen
+  - tzdata
+hosts_package_unwanted: []
+

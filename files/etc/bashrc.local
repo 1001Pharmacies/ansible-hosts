@@ -66,11 +66,11 @@ fi
 
 BRANCH="\$(GIT_BRANCH=\$(git_branch); [ -n \"\$GIT_BRANCH\" ] && echo \"$DGRAY@$CYAN\$GIT_BRANCH\")"
 
-export PS1="$NC$BLUE$INFO$COLOR\u$DGRAY@$CYAN\h$DGRAY:$GRAY\w$BRANCH$DGRAY$END$NC "
-# readonly PS1
-# umask 002
+if [ ! -f /etc/centile/.configured ]; then 
+    export PS1="$NC$BLUE$INFO$COLOR\u$DGRAY@$CYAN\h$DGRAY:$GRAY\w$BRANCH$DGRAY$END$NC "
+    [ -n "$STY" ] && export PROMPT_COMMAND='echo -ne "\033k${HOSTNAME%%.*}\033\\"'
+fi
 
-[ -n "$STY" ] && export PROMPT_COMMAND='echo -ne "\033k${HOSTNAME%%.*}\033\\"'
 if [ -n "$SSH_TTY" -a -f ${HOME}/.ssh/auto ]; then
     if [ "${HOSTNAME%%-*}" == 'proxy' ]; then
         ssh_agent
