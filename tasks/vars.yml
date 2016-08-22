@@ -24,4 +24,4 @@
       - "vars/"
 
 - name: vars - override with local variables
-  include_vars: "vars/local.yml"
+  include_vars: "../vars/local.yml"

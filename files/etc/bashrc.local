@@ -71,7 +71,7 @@ if [ ! -f /etc/centile/.configured ]; then
     [ -n "$STY" ] && export PROMPT_COMMAND='echo -ne "\033k${HOSTNAME%%.*}\033\\"'
 fi
 
-if [ -n "$SSH_TTY" -a -f ${HOME}/.ssh/auto ]; then
+if [ -n "$SSH_TTY" -a -d ${HOME}/.ssh/auto ]; then
     if [ "${HOSTNAME%%-*}" == 'proxy' ]; then
         ssh_agent
         attach_tmux

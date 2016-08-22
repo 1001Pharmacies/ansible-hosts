@@ -3,10 +3,10 @@
 
 - name: root - register auto screen state
   set_fact:
-    hosts_root_auto_state: "{{hosts_root_auto_screen|ternary('touch', 'absent')}}"
+    hosts_root_auto_state: "{{hosts_root_auto_screen|ternary('directory', 'absent')}}"
 
-- name: root - touch file /root/.ssh/auto
-  file: path=/root/.ssh/auto state={{hosts_root_auto_state}} mode="u=rw,g=r,o=r"
+- name: root - create directory /root/.ssh/auto
+  file: path=/root/.ssh/auto state={{hosts_root_auto_state}} mode="0700"
   become: yes
 
 - name: root - update file /root/.screenrc
