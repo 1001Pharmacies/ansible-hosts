@@ -1,5 +1,5 @@
 gossfile:
-  package_default.yml: {}
-  bash_default.yml: {}
+  package.yml: {}
+  bash.yml: {}
   root.yml: {}
   # ssh.yml: {}

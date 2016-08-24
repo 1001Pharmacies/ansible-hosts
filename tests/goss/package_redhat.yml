@@ -1,5 +1,5 @@
 gossfile:
-  package.yml: {}
+  package_common.yml: {}
 package:
   vim-minimal:
     installed: true

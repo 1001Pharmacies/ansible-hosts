@@ -14,10 +14,11 @@
   - name: tests - register specific OS goss files
     set_fact:
       goss_file:
-        - "goss/main_{{ansible_distribution|lower}}.yml"          # main_centos.yml main_ubuntu.yml
-        - "goss/main_{{ansible_os_family|lower}}.yml"             # main_redhat.yml main_debian.yml
-        - "goss/main_{{ansible_system|lower}}.yml"                # main_linux.yml
-        - "goss/main.yml"                                         # main.yml
+        - "goss/main_{{ansible_distribution|lower}}-{{ansible_distribution_major_version|lower}}.yml" # main_centos-6.yml main_centos-7.yml
+        - "goss/main_{{ansible_distribution|lower}}.yml"                                              # main_centos.yml main_ubuntu.yml
+        - "goss/main_{{ansible_os_family|lower}}.yml"                                                 # main_redhat.yml main_debian.yml
+        - "goss/main_{{ansible_system|lower}}.yml"                                                    # main_linux.yml
+        - "goss/main.yml"                                                                             # main.yml
 
   - name: tests - register goss file
     set_fact:

@@ -9,5 +9,5 @@ file:
       - "source /etc/bashrc.local"
 
 gossfile:
-  bash.yml: {}
+  bash_common.yml: {}
 

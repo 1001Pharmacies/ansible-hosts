@@ -1,5 +1,0 @@
-gossfile:
-  package.yml: {}
-package:
-  vim:
-    installed: true

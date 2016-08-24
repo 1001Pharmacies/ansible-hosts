@@ -1,11 +1,5 @@
+gossfile:
+  package_common.yml: {}
 package:
-  bash:
-    installed: true
-  ca-certificates:
-    installed: true
-  screen:
-    installed: true
-  rsync:
-    installed: true
-  tzdata:
+  vim:
     installed: true
