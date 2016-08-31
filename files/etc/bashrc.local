@@ -8,8 +8,31 @@ if [ -f "${HOME}/.bash_functions" ]; then
     source "${HOME}/.bash_functions"
 fi
 
+function ssh_force {
+    PS_X_SSH_FIELD=5
+    if [ $# -gt 0 ]; then
+        # awk expression matching only $1
+        # while true; do [ $(ps x |awk '$'$PS_X_SSH_FIELD' == "ssh" && $'$((PS_X_SSH_FIELD+1))' == "'$1'"' |wc -l) -eq 0 ] && ssh $1 || sleep 1; done
+        # awk expression to match $@
+        while true; do
+            [ $(ps x |awk '
+                BEGIN {nargs=split("'"$*"'",args)}
+                $sshfield == "ssh" {
+                    matched=0;
+                    for (i=1;i<=NF-sshfield;i++) {
+                        if ($(i+sshfield) == args[i]) {matched++}
+                    }
+                    if (matched+0 == nargs) {found++}
+                }
+                END {print found+0}' sshfield=${PS_X_SSH_FIELD}) -eq 0 ] \
+            && ssh $@ || sleep 1;
+        done
+    fi
+}
+
 function ssh_agent {
     which ssh-agent >/dev/null 2>&1 && which ssh-add >/dev/null 2>&1 || return
+    [ -z "$SSH_AUTH_SOCK" ] || return
     [ -d /tmp/ssh-${UID} ] || { mkdir /tmp/ssh-${UID} 2>/dev/null && chmod 0700 /tmp/ssh-${UID}; }
     [ $(ps x |awk '$5 == "ssh-agent" && $7 == "'/tmp/ssh-${UID}/agent@${HOSTNAME}'"' |wc -l) -eq 0 ] && rm -f /tmp/ssh-${UID}/agent@${HOSTNAME} && ssh-agent -a /tmp/ssh-${UID}/agent@${HOSTNAME} 2>/dev/null > ${HOME}/.ssh/agent@${HOSTNAME}
     export SSH_AUTH_SOCK="/tmp/ssh-${UID}/agent@${HOSTNAME}"
@@ -29,6 +52,13 @@ function attach_tmux {
     which tmux >/dev/null 2>&1 || return
     if [ -z "$TMUX" ]; then
         echo -n 'Attaching tmux.' && sleep 1 && echo -n '.' && sleep 1 && echo -n '.' && sleep 1 && tmux -L$USER@$HOSTNAME -q has-session >/dev/null 2>&1 && tmux -L$USER@$HOSTNAME attach-session -d || tmux -L$USER@$HOSTNAME new-session -n$USER -s$USER@$HOSTNAME
+    fi
+}
+
+function tmux_window {
+    which tmux >/dev/null 2>&1 || return
+    if [ -n "$TMUX" ]; then
+       tmux list-window |awk '$NF == "(active)" {print $1}' |sed 's/:$//'
     fi
 }
 
@@ -71,12 +101,13 @@ if [ ! -f /etc/centile/.configured ]; then
     [ -n "$STY" ] && export PROMPT_COMMAND='echo -ne "\033k${HOSTNAME%%.*}\033\\"'
 fi
 
-if [ -n "$SSH_TTY" -a -d ${HOME}/.ssh/auto ]; then
-    if [ "${HOSTNAME%%-*}" == 'proxy' ]; then
+#if [ -n "$SSH_TTY" -a -d ${HOME}/.ssh/auto ]; then
+if [ -t 0 -a -d ${HOME}/.ssh/auto ]; then
+    if [ "$USER" == "root" -o "$(tmux_window)" == "0" ]; then
+        attach_screen
+    else
         ssh_agent
         attach_tmux
-    else
-        attach_screen
     fi
 fi
 
