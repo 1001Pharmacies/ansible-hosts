@@ -3,3 +3,4 @@
 
 hosts_package:
   - vim-minimal
+  - libselinux-python

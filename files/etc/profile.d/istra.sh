@@ -8,7 +8,7 @@ fi
 
 HISTTIMEFORMAT='[%F %T] '
 
-CUSTOMERZONE=$(grep dns_zone /etc/centile/cluster/cluster.conf | cut -f 2 -d '=')
+CUSTOMERZONE=$(grep dns_zone /etc/centile/cluster/cluster.conf 2>/dev/null | cut -f 2 -d '=')
 
 [ "$PS1" = "\\s-\\v\\\$ " ] && [ "`id -u`" -eq 0 ] && PS1=$'\[\E[1m\]CENTILE ISTRA --< $CUSTOMERZONE >--\n\[\E[01;31m\]\u\[\E[0m\]@\[\E[01;36m\]\h\[\E[0m\]:\w\[\E[01;31m\] \$\[\E[0m\] '
 [ "$PS1" = "\\s-\\v\\\$ " ] && PS1=$'\[\E[1m\]CENTILE ISTRA --< $CUSTOMERZONE >--\n\[\E[01;32m\]\u\[\E[0m\]@\[\E[01;36m\]\h\[\E[0m\]:\w\[\E[01;32m\] \$\[\E[0m\] '
