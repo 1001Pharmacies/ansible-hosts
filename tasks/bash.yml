@@ -10,6 +10,7 @@
   become: yes
   with_items:
     - "{{hosts_bash_etc_bashrc_local}}"
+    - "{{hosts_bash_etc_profile_d_bash_functions_sh}}"
     - "{{hosts_bash_etc_profile_d_istra_sh}}"
 
 - name: bash - copy bash istra files

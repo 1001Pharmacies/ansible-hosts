@@ -2,5 +2,5 @@
 # file vars/redhat.yml
 
 hosts_package:
-  - vim-minimal
+  - vim
   - libselinux-python
