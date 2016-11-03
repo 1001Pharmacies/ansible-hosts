@@ -3,9 +3,9 @@
 
 # a list of github usernames to get public keys
 hosts_ssh_users: []
-# when a user connect with ssh as root, create and/or attach a screen session
+# when the user connect with ssh, create and/or attach a screen session
 # true / false
-hosts_root_auto_screen: false
+hosts_auto_screen: false
 
 hosts_bash_etc_bashrc: /etc/bashrc
 hosts_bash_etc_bashrc_local: /etc/bashrc.local
