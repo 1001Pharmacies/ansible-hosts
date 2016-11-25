@@ -6,5 +6,5 @@ file:
     group: root
     filetype: file
     contains:
-      - "source /etc/bashrc.local"
+      - "source /etc/profile.d/bashrc.sh"
 

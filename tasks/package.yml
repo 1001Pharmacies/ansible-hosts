@@ -1,21 +1,7 @@
 ---
-# file: tasks/package.yml
+# file: tasks/packages.yml
 
-- name: package - remove unwanted packages
-  package: name="{{item}}" state=absent
-  with_items: "{{hosts_package_unwanted}}"
-  when: hosts_package_unwanted|length > 0
+- name: packages - install/remove packages
+  package: name="{{item.name}}" state="{{item.state}}"
+  with_items: "{{hosts_packages_common|default([]) + hosts_packages|default([])}}"
   become: yes
-
-- name: package - add package dependencies
-  package: name="{{item}}" state=present
-  with_items: "{{hosts_package_dependencies}}"
-  when: hosts_package_dependencies|length > 0
-  become: yes
-
-- name: package - add hosts package
-  package: name="{{item}}" state=present
-  with_items: "{{hosts_package}}"
-  when: hosts_package|length > 0
-  become: yes
-

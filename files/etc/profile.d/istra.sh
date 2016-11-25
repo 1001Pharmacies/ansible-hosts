@@ -1,9 +1,9 @@
 if [ $(id -u) -eq 0 ]
 then
   # Make sure sbin dirs are in path when uid is 0
-  pathmunge /sbin
-  pathmunge /usr/sbin
-  pathmunge /usr/local/sbin
+  pathmunge /sbin 2>/dev/null
+  pathmunge /usr/sbin 2>/dev/null
+  pathmunge /usr/local/sbin 2>/dev/null
 fi
 
 HISTTIMEFORMAT='[%F %T] '

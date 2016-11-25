@@ -1,5 +1,5 @@
 file:
-  /etc/bashrc.local:
+  /etc/profile.d/bashrc.sh:
     exists: true
     mode: "0644"
     owner: root
