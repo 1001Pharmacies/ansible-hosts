@@ -1,12 +1,17 @@
 ---
 # file: tasks/user.yml
 
-- name: user - register auto screen state
+- name: user - register auto state
   set_fact:
-    hosts_auto_state: "{{hosts_auto_screen|ternary('directory', 'absent')}}"
+    hosts_auto_state: "{{hosts_auto|default(false)|ternary('directory', 'absent')}}"
 
 - name: user - create directory .ssh/auto
   file: path=~/.ssh/auto state={{hosts_auto_state}} mode="0700"
+
+- name: user - activate automatic stuffs
+  with_items: "{{hosts_auto_stuffs|default([])}}"
+  file: path="~/.ssh/auto/{{item.name}}" state={{item.state|default('present')}} mode="0600"
+  when: hosts_auto|default(false)
 
 - name: user - update file .screenrc
   lineinfile: dest=~/.screenrc create=yes line='hardstatus alwayslastline "%{= kw}[%{G}%H%{-}] \# %?%-Lw%?[%{G}%n%f %t%{-}]%?%+Lw%?%?%=%-17< [%{B}%l%{-}]"'

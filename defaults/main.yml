@@ -4,9 +4,13 @@
 # a list of github usernames to get public keys
 hosts_ssh_users: []
 
+# allow to load functions at user connection
+hosts_auto: false
+
+# list of functions to call at user connection
+# hosts_auto_stuffs:
 # when the user connect with ssh, create and/or attach a screen session
-# true / false
-hosts_auto_screen: false
+#   - { "name": "attach_screen"; "state": "touch" }
 
 hosts_bash_etc_bashrc: /etc/bashrc
 hosts_packages: []

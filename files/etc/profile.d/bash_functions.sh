@@ -35,6 +35,8 @@ function ssh_agent {
 function attach_screen {
     which screen >/dev/null 2>&1 || return
     if [ -z "$STY" ]; then
+        # attach screen in tmux only in tmux window 0
+        [ -n "${TMUX}" -a "$(tmux_window 2>/dev/null)" != "0" ] && return
         echo -n 'Attaching screen.' && sleep 1 && echo -n '.' && sleep 1 && echo -n '.' && sleep 1 && screen -xRR -S "${USER}" 2>/dev/null
     fi
 }
@@ -70,3 +72,34 @@ function load_average {
     awk '{print $1}' /proc/loadavg 2>/dev/null
 }
 
+# customize PS1
+function export_ps1 {
+    DGRAY="\[\033[1;30m\]"
+    RED="\[\033[01;31m\]"
+    GREEN="\[\033[01;32m\]"
+    BROWN="\[\033[0;33m\]"
+    YELLOW="\[\033[01;33m\]"
+    BLUE="\[\033[01;34m\]"
+    CYAN="\[\033[0;36m\]"
+    GRAY="\[\033[0;37m\]"
+    NC="\[\033[0m\]"
+
+    if [ $UID = 0 ]; then
+        COLOR=$RED
+        INFO="[\$(process_count)|\$(load_average)]"
+        END="#"
+    else
+        COLOR=$BROWN
+        INFO=""
+        END="\$"
+    fi
+
+    BRANCH="\$(GIT_BRANCH=\$(git_branch); [ -n \"\$GIT_BRANCH\" ] && echo \"$DGRAY@$CYAN\$GIT_BRANCH\")"
+
+    export PS1="$NC$BLUE$INFO$COLOR\u$DGRAY@$CYAN\h$DGRAY:$GRAY\w$BRANCH$DGRAY$END$NC "
+}
+
+# export PROMPT_COMMAND
+function export_prompt_command {
+    [ -n "$STY" ] && export PROMPT_COMMAND='echo -ne "\033k${HOSTNAME%%.*}\033\\"'
+}
