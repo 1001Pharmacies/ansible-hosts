@@ -12,8 +12,13 @@ hosts_auto: false
 # when the user connect with ssh, create and/or attach a screen session
 #   - { "name": "attach_screen"; "state": "touch" }
 
-hosts_bash_etc_bashrc: /etc/bashrc
+# location of /etc/bashrc
+hosts_etc_bashrc: /etc/bashrc
+
+# packages specific to a distribution
 hosts_packages: []
+
+# packages common to all distributions
 hosts_packages_common:
   - { "name": "bash", "state": "present" }
   - { "name": "ca-certificates", "state": "present" }

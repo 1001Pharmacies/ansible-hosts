@@ -2,7 +2,7 @@
 # file: tasks/bash.yml
 
 - name: bash - update file /etc/bashrc
-  lineinfile: dest="{{hosts_bash_etc_bashrc}}" state=present create=yes line="[ -r /etc/profile.d/rc.sh ] && source /etc/profile.d/rc.sh 2>/dev/null"
+  lineinfile: dest="{{hosts_etc_bashrc}}" state=present create=yes line="[ -r /etc/profile.d/rc.sh ] && source /etc/profile.d/rc.sh 2>/dev/null"
   become: yes
 
 - name: bash - copy profile.d files
