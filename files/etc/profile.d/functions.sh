@@ -72,8 +72,8 @@ function load_average {
     awk '{print $1}' /proc/loadavg 2>/dev/null
 }
 
-# customize PS1
-function export_ps1 {
+# export PS1
+function custom_ps1 {
     DGRAY="\[\033[1;30m\]"
     RED="\[\033[01;31m\]"
     GREEN="\[\033[01;32m\]"
@@ -99,7 +99,7 @@ function export_ps1 {
     export PS1="$NC$BLUE$INFO$COLOR\u$DGRAY@$CYAN\h$DGRAY:$GRAY\w$BRANCH$DGRAY$END$NC "
 }
 
-# export PROMPT_COMMAND
-function export_prompt_command {
+# export PROMPT_COMMAND inside a screen
+function custom_prompt {
     [ -n "$STY" ] && export PROMPT_COMMAND='echo -ne "\033k${HOSTNAME%%.*}\033\\"'
 }

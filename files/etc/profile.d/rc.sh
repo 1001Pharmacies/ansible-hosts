@@ -1,17 +1,12 @@
-# verify that needed functions are loaded
-type git_branch >/dev/null 2>&1 || source /etc/profile.d/bash_functions.sh
-
-# load personal stuffs
-for user_file in .bash_aliases .bash_functions; do
-    [ -f "${HOME}/${user_file}" ] && source "${HOME}/${user_file}"
-done
+# verify that default functions are loaded
+type force >/dev/null 2>&1 || source /etc/profile.d/functions.sh 2>/dev/null
 
 # if we are in a terminal and automatic stuffs are enabled
-if [ -t 0 -a -d ${HOME}/.ssh/auto ]; then
-    for user_func in ${HOME}/.ssh/auto/*; do
+if [ -t 0 -a -d ${HOME}/.rc.d ]; then
+    for user_func in ${HOME}/.rc.d/*; do
         # search for files
         [ -f ${user_func} ] && func_name="$(basename ${user_func})" || continue
-        # func_name should start with a letter (allow to order function calls with file names starting with numbers)
+        # func_name should start with a letter (allow to order function calls with names starting with numbers)
         while [ "${func_name}" != "" -a "${func_name#[a-z]}" = "${func_name}" ]; do
             # remove first char of func_name
             func_name="${func_name#?}"

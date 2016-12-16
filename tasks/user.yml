@@ -1,16 +1,12 @@
 ---
 # file: tasks/user.yml
 
-- name: user - register auto state
-  set_fact:
-    hosts_auto_state: "{{hosts_auto|default(false)|ternary('directory', 'absent')}}"
-
-- name: user - create directory .ssh/auto
-  file: path=~/.ssh/auto state={{hosts_auto_state}} mode="0700"
+- name: user - create directory ~/.rc.d
+  file: path=~/.rc.d/ state={{hosts_auto|default(false)|ternary('directory', 'absent')}} mode="0700"
 
 - name: user - activate automatic stuffs
   with_items: "{{hosts_auto_stuffs|default([])}}"
-  file: path="~/.ssh/auto/{{item.name}}" state={{item.state|default('present')}} mode="0600"
+  file: path="~/.rc.d/{{item.name}}" state={{item.state|default('present')}} mode="0600"
   when: hosts_auto|default(false)
 
 - name: user - update file .screenrc
