@@ -84,12 +84,3 @@ To test this role on your `hosts` servers, run the tests/playbook.yml playbook.
 ``` bash
 $ ansible-playbook tests/playbook.yml
 ```
-
-## Authors
-
-* **Yann Autissier** - *Initial work* - [aya](https://github.com/aya)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
