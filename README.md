@@ -11,20 +11,37 @@ An ansible role to customize your servers after a fresh install
 hosts_ssh_users: []
 ```
 
-* `hosts_auto` - Run user specific functions on ssh connection. This allow a user to customize his session when connecting to the server, like attaching automaticaly a screen session for example.
+* `hosts_enable_rc` - Run user specific functions on ssh connection. This allow a user to customize his session when connecting to a server, like attaching automaticaly a screen session for example.
 
 ``` yaml
-# allow to load functions at user connection
-hosts_auto: false
+# run user specific rc functions on ssh connection
+hosts_enable_rc: false
 ```
 
-* `hosts_auto_stuffs` - List of user specific functions to run on ssh connection. Here you can add any function to be called when you connect to the host. Current functions are defined in the /etc/profile.d/functions.sh file.
+* `hosts_rc_functions` - List of user specific functions to run on ssh connection. Here you can add any function to be called when you connect to the host. Default functions are available in the /etc/profile.d/rc_functions.sh file.
 
 ``` yaml
-# list of functions to call at user connection
-# hosts_auto_stuffs:
-#   when the user connect with ssh, create and/or attach a screen session
-#   - { "name": "attach_screen"; "state": "touch" }
+# list of rc functions to call at user connection
+hosts_rc_functions:
+    # customize PS1 variable
+    - 01_custom_ps1
+    # customize PROMPT variable
+    # - 02_custom_prompt
+    # launch a ssh agent and load all private keys located in ~/.ssh
+    # - 03_ssh_agent
+    # create and/or attach a tmux session
+    # - 04_attach_tmux
+    # create and/or attach a screen session
+    - 05_attach_screen
+```
+
+* `hosts_rc_cleanup` - List of rc functions you do not want to run anymore. If you had previously activated a rc function in `hosts_rc_functions`, you can add it to `hosts_rc_cleanup` to disable it.
+
+``` yaml
+# list of rc functions to cleanup (remove files)
+# hosts_rc_cleanup:
+    # - 03_ssh_agent
+    # - 04_attach_tmux
 ```
 
 * `hosts_etc_bashrc` - The location of the /etc/bashrc file on the current distro
@@ -66,15 +83,15 @@ It will install the following packages : bash, ca-certificates, rsync, screen, t
 ## Common configurations
 
 This example configuration will add the [ssh keys from aya's github user](https://github.com/aya.keys) to your remote ~/.ssh/authorized_keys.
-It will create a ~/.rc.d and touch custom_ps1 and attach_screen files into this directory, resulting in a customized PS1 and automaticaly attaching a screen on (re)connection on the remote server.
+It will create a ~/.rc.d and touch 01_custom_ps1 and 02_attach_screen files into this directory, resulting in a customized PS1 and automaticaly attaching a screen on (re)connection on the remote server.
 
 ``` yaml
 hosts_ssh_users:
   - aya
-hosts_auto: true
-hosts_auto_stuffs:
-  - { "name": "custom_ps1", "state": "touch" }
-  - { "name": "attach_screen", "state": "touch" }
+hosts_enable_rc: true
+hosts_rc_functions:
+  - 01_custom_ps1
+  - 02_attach_screen
 ```
 
 ## Tests

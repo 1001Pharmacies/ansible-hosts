@@ -1,5 +1,5 @@
 # verify that default functions are loaded
-type force >/dev/null 2>&1 || source /etc/profile.d/functions.sh 2>/dev/null
+type force >/dev/null 2>&1 || source /etc/profile.d/rc_functions.sh 2>/dev/null
 
 # test current shell flags
 case $- in

@@ -4,13 +4,26 @@
 # a list of github usernames to get public keys
 hosts_ssh_users: []
 
-# allow to load functions at user connection
-hosts_auto: false
+# run user specific rc functions on ssh connection
+hosts_enable_rc: false
 
-# list of functions to call at user connection
-# hosts_auto_stuffs:
-# when the user connect with ssh, create and/or attach a screen session
-#   - { "name": "attach_screen"; "state": "touch" }
+# list of rc functions to call at user connection
+hosts_rc_functions:
+    # customize PS1 variable
+    - 01_custom_ps1
+    # customize PROMPT variable
+    # - 02_custom_prompt
+    # launch a ssh agent and load all private keys located in ~/.ssh
+    # - 03_ssh_agent
+    # create and/or attach a tmux session
+    # - 04_attach_tmux
+    # create and/or attach a screen session
+    - 05_attach_screen
+
+# list of rc functions to cleanup (remove files)
+# hosts_rc_cleanup:
+#     - 03_ssh_agent
+#     - 04_attach_tmux
 
 # location of /etc/bashrc
 hosts_etc_bashrc: /etc/bashrc
