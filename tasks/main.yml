@@ -16,6 +16,9 @@
 - include: files.yml
   tags:
     - files
+- include: service.yml
+  tags:
+    - service
 - include: user.yml
   tags:
     - user

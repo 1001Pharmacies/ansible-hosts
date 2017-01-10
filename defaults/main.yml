@@ -4,6 +4,9 @@
 # a list of github usernames to get public keys
 hosts_ssh_users: []
 
+# Activate zram swap devices on host
+hosts_enable_zram: false
+
 # run user specific rc functions on ssh connection
 hosts_enable_rc: false
 

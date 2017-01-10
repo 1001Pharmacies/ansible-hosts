@@ -94,7 +94,7 @@ function custom_ps1 {
         END="\$"
     fi
 
-    BRANCH="\$(GIT_BRANCH=\$(git_branch); [ -n \"\$GIT_BRANCH\" ] && echo \"$DGRAY@$CYAN\$GIT_BRANCH\")"
+    BRANCH="\$(GIT_BRANCH=\$(git_branch 2>/dev/null); [ -n \"\$GIT_BRANCH\" ] && echo \"$DGRAY@$CYAN\$GIT_BRANCH\")"
 
     export PS1="$NC$BLUE$INFO$COLOR\u$DGRAY@$CYAN\h$DGRAY:$GRAY\w$BRANCH$DGRAY$END$NC "
 }

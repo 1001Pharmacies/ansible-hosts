@@ -11,6 +11,13 @@ An ansible role to customize your servers after a fresh install
 hosts_ssh_users: []
 ```
 
+* `hosts_enable_zram` - Activate zram swap devices. This option allows to create virtual swap devices compressed in RAM. It can increase hosts performances, specially on hosts without physical swap.
+
+``` yaml
+# Activate zram swap devices
+hosts_enable_zram: false
+```
+
 * `hosts_enable_rc` - Run user specific functions on ssh connection. This allow a user to customize his session when connecting to a server, like attaching automaticaly a screen session for example.
 
 ``` yaml
