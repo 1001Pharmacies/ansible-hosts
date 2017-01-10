@@ -5,16 +5,3 @@
   lineinfile: dest="{{hosts_etc_bashrc}}" state=present create=yes line="[ -r /etc/profile.d/rc.sh ] && source /etc/profile.d/rc.sh 2>/dev/null"
   become: yes
 
-- name: bash - copy profile.d files
-  copy: src=../files/{{item}} dest={{item}} owner=root group=root mode=0644
-  become: yes
-  with_items:
-    - /etc/profile.d/rc.sh
-    - /etc/profile.d/rc_functions.sh
-    - /etc/profile.d/istra.sh
-
-- name: bash - copy /usr/bin files
-  copy: src=../files/{{item}} dest={{item}} owner=root group=root mode=0755
-  become: yes
-  with_items:
-    - /usr/bin/istra_motd.sh

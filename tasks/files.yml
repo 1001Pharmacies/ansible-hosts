@@ -1,0 +1,17 @@
+---
+# file: tasks/files.yml
+
+- name: files - copy files
+  with_items:
+    - /etc/profile.d/rc.sh
+    - /etc/profile.d/rc_functions.sh
+    - /etc/profile.d/istra.sh
+  copy: src=../files/{{item}} dest={{item}} owner=root group=root mode=0644
+  become: yes
+
+- name: files - copy binary files
+  with_items:
+    - /usr/bin/istra_motd.sh
+  copy: src=../files/{{item}} dest={{item}} owner=root group=root mode=0755
+  become: yes
+

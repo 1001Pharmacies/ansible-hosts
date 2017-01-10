@@ -13,6 +13,9 @@
 - include: bash.yml
   tags:
     - bash
+- include: files.yml
+  tags:
+    - files
 - include: user.yml
   tags:
     - user
